@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block content %}
+
+    <body class="hold-transition login-page" style="min-height: 326.4px; background: linear-gradient(to bottom, #F8F8F9, #111439);">
+      <style>
+        body {
+            overflow: hidden; /* Prevent scrollbars */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg');
+            background-size: cover;
+             /* Adjust the blur intensity as needed */
+            z-index: -1; /* Place behind other content */
+        }
+        .card-body login-card-body{
+            /* Styles for your login box */
+            /* Ensure it has a higher z-index than the background image */
+            z-index: 1;
+        }
+    </style>
+<div class="login-box">
+  <div class="login-logo">
+    <a href="{% url 'login' %}"><b>Learning Analytics System</b></a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg"><center>Sign in</center></p>
+
+      <form action="{% url 'doLogin' %}" method="POST">
+      {% csrf_token %}
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email" name="email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" name="password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+
+          {% comment %} <div class="col-12 text-center">
+            <a href="{% url 'password_reset' %}">Reset Password</a>
+          </div>  {% endcomment %}
+
+          {% comment %} Display Messages {% endcomment %}
+          {% if messages %}
+          <div class="col-12">
+            {% for message in messages %}
+              {% if message.tags == "error" %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                  {{ message }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <!-- /.col -->
+        </div>
+      </form>
+
+
+  </div>
+</div>
+<!-- /.login-box -->
+
+{% endblock %}

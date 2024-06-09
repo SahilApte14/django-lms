@@ -1,0 +1,88 @@
+{% extends 'student_template/base_template.html' %}
+
+{% block page_title %}
+    <b>AskGPT</b>
+{% endblock page_title %}
+
+{% block custom_css %}
+    <style>
+        .select-wrapper {
+            position: relative;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .select-wrapper select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 10px 40px 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            color: #333;
+            cursor: pointer;
+            width: 500px;
+            max-width: 100%;
+            font-size: inherit;
+        }
+
+        .select-wrapper::before {
+            
+            font-family: FontAwesome;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            color: #888;
+            pointer-events: none;
+        }
+
+        .select-wrapper select option[value=""] {
+            color: #888;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .resultant{
+            max-width: 100%;
+    width: 100%; /* Set your desired width */
+    overflow-x: hidden; /* Hide overflowing content */
+    word-wrap: break-word; /* Wrap long words */
+}
+
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+{% endblock custom_css %}
+
+{% block main_content %}
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="card-body">
+                           
+            <div class="student_askgpt" id="student_askgpt">
+                <label><h3></h3>Enter your query: </label>
+                <textarea name="student_askgpt" class="form-control" rows="6" placeholder="AskGPT"></textarea>
+            </div>
+
+
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="submit-button">Ask</button>
+        <div id="resultant" class="resultant">
+        {% if student_askgpt %}
+        <h2><center><pre style="font-family: 'Times New Roman', Times, serif;", style="font-size: large;">Here's your solution for the query </pre></center></h2>
+            <p><pre  style="font-family: 'Times New Roman', Times, serif;">{{ student_askgpt }}</pre></p></div>
+    </form>
+    {% endif %}
+{% endblock main_content %}

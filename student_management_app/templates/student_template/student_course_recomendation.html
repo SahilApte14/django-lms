@@ -1,0 +1,85 @@
+{% extends 'student_template/base_template.html' %}
+
+{% block page_title %}
+    Course Recommendations
+{% endblock page_title %}
+
+{% block custom_css %}
+    <style>
+        .select-wrapper {
+            position: relative;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .select-wrapper select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 10px 40px 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            color: #333;
+            cursor: pointer;
+            width: 500px;
+            max-width: 100%;
+            font-size: inherit;
+        }
+
+        .select-wrapper::before {
+            
+            font-family: FontAwesome;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            color: #888;
+            pointer-events: none;
+        }
+
+        .select-wrapper select option[value=""] {
+            color: #888;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+{% endblock custom_css %}
+
+{% block main_content %}<center>
+    <h2>Select a Course</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="select-wrapper">
+            <select name="course_dropdown" id="course_dropdown">
+                <option>Select your course</option>
+                {% for course in courses_list %}
+                    <option value="{{ course }}">{{ course }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="submit-button">Get Recommendations</button>
+
+        {% if recommended_courses %}
+            <h2>Recommended Courses</h2>
+            <ul>
+                {% for course in recommended_courses %}
+                    <li>{{ course }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </form>
+</center>
+{% endblock main_content %}
